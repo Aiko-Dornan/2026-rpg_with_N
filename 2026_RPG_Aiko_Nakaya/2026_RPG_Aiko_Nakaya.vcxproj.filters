@@ -27,6 +27,12 @@
     <Filter Include="ライブラリ用ソースファイル">
       <UniqueIdentifier>{e93d6900-d129-4c3f-acbd-1f8be7236993}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\オブジェクト\enemy">
+      <UniqueIdentifier>{319976af-87b4-4402-b56d-36ced7bc914c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\オブジェクト\enemy">
+      <UniqueIdentifier>{2887ba23-a9a4-4eee-b7dd-599ddc4c79a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -98,6 +104,9 @@
     <ClInclude Include="expitem.h">
       <Filter>ヘッダー ファイル\オブジェクト</Filter>
     </ClInclude>
+    <ClInclude Include="enemyBullet.h">
+      <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>ソース ファイル\オブジェクト</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyBullet.cpp">
+      <Filter>ソース ファイル\オブジェクト\enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

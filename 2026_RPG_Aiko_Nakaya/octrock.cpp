@@ -3,6 +3,7 @@
 #include"spawnPoint.h"
 #include"expitem.h"
 #include"player.h"
+#include"enemyBullet.h"
 
 COctrock::COctrock(Point p, CMap* _map,CSpawnPoint* _sp)
 {
@@ -50,13 +51,28 @@ int COctrock::Action(const ObjList& base, ObjList& add_base)
 	if (MoveMentTime<0.0f)
 	{
 		TestMove();
+		//移動方向からキャラクターの向きを取得
+		
 	}
 	else
 	{
 		MoveMentTime--;
 	}
 
+	if (attackTime<0.0f)
+	{
+		Attack(add_base);
+	}
+	else
+	{
+		attackTime--;
+
+	}
+
+
 	return 0;
+
+
 
 }
 
@@ -72,6 +88,8 @@ void COctrock::TestMove()
 	
 
 	move_direction = GetRand(3);
+
+
 
 	switch (move_direction)
 	{
@@ -109,8 +127,35 @@ void COctrock::TestMove()
 	if (map->CanMove(nextPos, ImgWidth, ImgHeight))
 		pos.y = nextPos.y;
 
+	Dir = GetDir(Dir);
+
 	vec.x = 0.0f;
 	vec.y = 0.0f;
 
 	MoveMentTime = 10.0f;
+}
+
+void COctrock::Attack(ObjList& add_base)
+{
+	add_base.push_back(make_unique<CEnemyBullet>(pos,Dir, map));
+	attackTime = 10.0f;
+
+	//switch (move_direction)
+	//{
+	//case 0://右
+	//	vec.x = move_speed;
+	//	break;
+	//case 1://左
+	//	vec.x = -move_speed;
+	//	break;
+	//case 2://上
+	//	vec.y = -move_speed;
+	//	break;
+	//case 3://下
+	//	vec.y = move_speed;
+	//	break;
+	//default:
+	//	break;
+	//}
+
 }

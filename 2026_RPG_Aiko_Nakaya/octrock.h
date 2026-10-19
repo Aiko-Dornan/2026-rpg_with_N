@@ -2,7 +2,7 @@
 //#include "objBase.h"
 #include"map.h"
 #include"damageObj.h"
-
+#include"enemyBullet.h"
 
 class CSpawnPoint;
 
@@ -17,9 +17,15 @@ public:
 	//対象スポナー
 	CSpawnPoint* spawn{ nullptr };
 
+	//CEnemyBullet* eb;
+
 	float MoveMentTime{ 10.0f };//移動間隔
+
+	float attackTime{ 50.0f };
 
 	//移動
 	void TestMove();
+
+	void Attack(ObjList&);
 
 };

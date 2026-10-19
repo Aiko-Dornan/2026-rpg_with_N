@@ -9,6 +9,9 @@ void CollisionUpDate(ObjList&);
 //プレイヤーと敵
 void Player_Enemy_Collision(BaseVector*, BaseVector*);
 
+//プレイヤーと敵の弾
+void Player_EnemyBullet_Collision(BaseVector*, BaseVector*);
+
 //敵と剣
 void Enemy_Sword_Collision(BaseVector*, BaseVector*);
 

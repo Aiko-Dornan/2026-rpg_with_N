@@ -39,12 +39,20 @@ CSword::CSword(Point p, int _dir, CMap* _map)
 	pri = 2;
 	ID = (int)ObjID::SWORD;
 	
+	/*Point draw_pos = CameraToScreen(pos, map->camera);
 
+	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
+	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
 
 }
 
 int CSword::Action(const ObjList& base, ObjList& add_base)
 {
+	/*Point draw_pos = CameraToScreen(pos, map->camera);
+
+	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
+	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
+
 	angle += 15;
 	vec.x = cos(RADIAN(angle)) * sprite.width;
 	vec.y = cos(RADIAN(angle)) * sprite.height;

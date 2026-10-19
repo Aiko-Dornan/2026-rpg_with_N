@@ -5,17 +5,20 @@
 
 #include"player.h"
 #include"octrock.h"
+#include"CCamera.h"
 
 //コンストラクタ
 CGame::CGame(CManager* p) :CScene(p){
 	//リソースの読み込み
 	Resource::Load();
 
+
 	//マップオブジェクト
 	map = make_unique<CMap>();
 
 	//プレイヤー
 	base.push_back(make_unique<CPlayer>(map.get()));
+	//base.push_back(make_unique<CCamera>(map.get()));
 	////敵
 	//Point pos{ 320,500 };
 	//base.push_back(make_unique<COctrock>(pos,map.get()));

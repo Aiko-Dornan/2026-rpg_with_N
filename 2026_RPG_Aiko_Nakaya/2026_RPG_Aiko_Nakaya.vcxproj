@@ -158,6 +158,7 @@
     <ClInclude Include="2D_function.h" />
     <ClInclude Include="CollisionUpdate.h" />
     <ClInclude Include="damageObj.h" />
+    <ClInclude Include="enemyBullet.h" />
     <ClInclude Include="expitem.h" />
     <ClInclude Include="function.h" />
     <ClInclude Include="game.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="2D_function.cpp" />
     <ClCompile Include="CollisionUpDate.cpp" />
     <ClCompile Include="damageObj.cpp" />
+    <ClCompile Include="enemyBullet.cpp" />
     <ClCompile Include="expitem.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="game.cpp" />

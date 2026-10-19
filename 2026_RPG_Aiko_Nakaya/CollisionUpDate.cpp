@@ -30,6 +30,15 @@ void CollisionUpDate(ObjList& base) {
 				Player_Enemy_Collision(a, b);
 
 			}
+
+			//プレイヤーと敵の弾
+			if (a->ID == (int)ObjID::PLAYER && b->ID == (int)ObjID::ENEMYBULLET)
+			{
+				//CPlayer* player = dynamic_cast<CPlayer>(a);
+				Player_EnemyBullet_Collision(a, b);
+
+			}
+
 			if (a->ID == (int)ObjID::ENEMY && b->ID == (int)ObjID::SWORD)
 			{
 				//CPlayer* player = dynamic_cast<CPlayer>(a);
@@ -63,6 +72,30 @@ void Player_Enemy_Collision(BaseVector* a, BaseVector* b)
 		v = Vector_SetLength(v, 15.0f);
 		//player->KnockBack(v);
 		player->Damage(1, v);
+
+		
+
+	}
+}
+
+//プレイヤーと敵の弾
+void Player_EnemyBullet_Collision(BaseVector* a, BaseVector* b)
+{
+	if (HitCheck_Box2(a, b))
+	{
+		//a->FLAG = false;
+		CDamageObj* player = dynamic_cast<CDamageObj*>(a);
+
+		Vector v{
+		a->pos.x - b->pos.x,
+		a->pos.y - b->pos.y
+		};
+		v = Vector_SetLength(v, 15.0f);
+		//player->KnockBack(v);
+		player->Damage(1, v);
+
+
+
 	}
 }
 

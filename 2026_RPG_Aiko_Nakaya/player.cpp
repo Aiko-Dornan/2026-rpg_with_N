@@ -24,6 +24,11 @@ CPlayer::CPlayer(CMap* _map)
 
 int CPlayer::Action(const ObjList& base, ObjList& add_base)
 {
+	Point draw_pos = CameraToScreen(pos, map->camera);
+
+	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
+	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;
+
 	//無敵時間
 	if (damageCoolTime > 0)
 	{
@@ -46,6 +51,8 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 		
 		
 	}
+
+
 
 	//ノックバック処理
 	if (UpdateKnockBack())return 0;
@@ -85,6 +92,8 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 	if (CheckHitKey(KEY_INPUT_D)) vec.x = 1.0f;
 	if (CheckHitKey(KEY_INPUT_W)) vec.y = -1.0f;
 	if (CheckHitKey(KEY_INPUT_S)) vec.y = 1.0f;
+
+	
 
 	//移動しているかどうかのフラグ
 	bool isMove = (vec.x != 0 || vec.y != 0);
