@@ -90,6 +90,8 @@ void CMap::Map_Update(const ObjList& base, ObjList& add_base)
 	camera.x += (tx - camera.x) * 0.1f;
 	camera.y += (ty - camera.y) * 0.1f;
 
+	//fake_camera = camera;
+
 	//カメラ領域判定
 	if (camera.x <= CAMERA_INIT.x) camera.x = CAMERA_INIT.x;
 	if (camera.y <= CAMERA_INIT.y) camera.y = CAMERA_INIT.y;

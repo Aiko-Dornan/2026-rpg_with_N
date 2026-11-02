@@ -25,8 +25,8 @@ CPlayer::CPlayer(CMap* _map)
 int CPlayer::Action(const ObjList& base, ObjList& add_base)
 {
 	/*Point draw_pos = CameraToScreen(pos, map->camera);
-	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
-	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
+	map->fake_camera.x = draw_pos.x - WINDOW_WIDTH / 2;
+	map->fake_camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
 
 	//無敵時間
 	if (damageCoolTime > 0)
@@ -205,7 +205,7 @@ void CPlayer::Draw()
 
 
 	DrawFormatString(draw_pos.x, draw_pos.y, 0xfffff, "HP:%d", hp);
-
+	DrawFormatString(draw_pos.x-32, draw_pos.y-32, 0xfffff, "%lf,%lf", map->camera.x,map->camera.y);
 }
 
 void CPlayer::Respawn()

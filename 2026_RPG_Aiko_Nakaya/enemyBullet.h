@@ -8,6 +8,8 @@ class CEnemyBullet : public BaseVector
 public:
 	CEnemyBullet(Point,int, CMap*);
 
+	~CEnemyBullet();
+
 	int Action(const ObjList&, ObjList&);
 	void Draw();
 
@@ -19,5 +21,9 @@ public:
 
 	//Œ•‚Ì’·‚³
 	int length{ 48 };
+
+	Point pl_pos{ 0,0 };
+
+	//ObjList& base;
 };
 

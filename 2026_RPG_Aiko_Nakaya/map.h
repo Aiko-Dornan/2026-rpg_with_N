@@ -40,6 +40,7 @@ public:
 	Point screen_pos{ 0,0 };
 	//カメラ座標
 	Point camera{ 0,0 };
+	Point fake_camera{ 0,0 };
 
 	//更新処理
 	int BaseChipNoX{ 0 };//描画する左上のチップ番号(配列の添え字）

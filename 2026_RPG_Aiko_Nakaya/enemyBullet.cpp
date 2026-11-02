@@ -57,7 +57,18 @@ int CEnemyBullet::Action(const ObjList& base, ObjList& add_base)
 	
 	pos.y += vec.y;
 	
-	if (pos.x>map->camera.x+WINDOW_WIDTH|| pos.x < map->camera.x - WINDOW_WIDTH|| pos.y > map->camera.y + WINDOW_HEIGHT|| pos.y < map->camera.y - WINDOW_HEIGHT)
+	for (int i = 0; i < base.size(); i++) 
+		{
+			BaseVector* a = base[i].get();
+		
+			if (a->ID == (int)ObjID::PLAYER)
+			{
+				pl_pos = a->pos;
+			}
+
+		}
+
+	if (pos.x> pl_pos .x+WINDOW_WIDTH|| pos.x < pl_pos.x - WINDOW_WIDTH|| pos.y > pl_pos.y + WINDOW_HEIGHT|| pos.y < pl_pos.y - WINDOW_HEIGHT)
 	{
 		FLAG = false;
 	}
@@ -71,4 +82,9 @@ void CEnemyBullet::Draw()
 	Point draw_pos = CameraToScreen(pos, map->camera);
 
 	sprite.Draw(draw_pos.x + vec.x, draw_pos.y + vec.y);
+}
+
+CEnemyBullet::~CEnemyBullet()
+{
+	FLAG = false;
 }
