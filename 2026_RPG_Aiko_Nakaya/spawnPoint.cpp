@@ -36,6 +36,7 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 		//敵出現
 		if (dist<=150)
 		{
+			EnemyNo = GetRand(1);
 			//敵生成
 			switch (EnemyNo)
 			{
