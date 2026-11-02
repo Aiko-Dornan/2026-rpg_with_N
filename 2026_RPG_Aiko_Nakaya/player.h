@@ -24,5 +24,5 @@ public:
 	int player_hp{5};
 
 private:
-	Point stratPos{ 208,208 };
+	Point stratPos{ 208,308 };
 };

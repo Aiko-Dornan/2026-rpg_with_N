@@ -175,7 +175,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene_Base.h" />
     <ClInclude Include="Scene_Manager.h" />
-    <ClInclude Include="Slime.h" />
+    <ClInclude Include="slime.h" />
     <ClInclude Include="spawnPoint.h" />
     <ClInclude Include="sword.h" />
   </ItemGroup>
@@ -196,7 +196,7 @@
     <ClCompile Include="octrock.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Resoure.cpp" />
-    <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="slime.cpp" />
     <ClCompile Include="spawnPoint.cpp" />
     <ClCompile Include="sword.cpp" />
   </ItemGroup>

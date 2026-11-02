@@ -1,6 +1,7 @@
 ﻿#include"spawnPoint.h"
 #include"function.h"
 #include"octrock.h"
+#include"slime.h"
 
 CSpawnPoint::CSpawnPoint(Point p, int no, CMap* _map)
 {
@@ -10,7 +11,7 @@ CSpawnPoint::CSpawnPoint(Point p, int no, CMap* _map)
 	pos.x = p.x + CHIP_SIZE_X / 2;
 	pos.y = p.y + CHIP_SIZE_Y / 2;
 
-	EnemyNo = 0;
+	EnemyNo = no;
 	map = _map;
 }
 
@@ -30,6 +31,8 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 		float dx = p.x - pos.x;
 		float dy = p.y - pos.y;
 		float dist = sqrt(dx * dx + dy * dy);
+
+
 		//敵出現
 		if (dist<=150)
 		{
@@ -38,6 +41,9 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 			{
 				case 0:
 					add_base.push_back(make_unique<COctrock>(pos, map,this));
+					break;
+				case 1:
+					add_base.push_back(make_unique<CSlime>(pos, map, this));
 					break;
 			}
 			enemyAlive = true;
@@ -53,4 +59,4 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 void CSpawnPoint::Draw()
 {
 
-	}
+}

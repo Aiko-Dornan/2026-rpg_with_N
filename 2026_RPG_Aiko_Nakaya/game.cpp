@@ -4,6 +4,7 @@
 #include "function.h"
 
 #include"player.h"
+#include"slime.h"
 #include"octrock.h"
 #include"CCamera.h"
 
