@@ -24,10 +24,9 @@ CPlayer::CPlayer(CMap* _map)
 
 int CPlayer::Action(const ObjList& base, ObjList& add_base)
 {
-	Point draw_pos = CameraToScreen(pos, map->camera);
-
+	/*Point draw_pos = CameraToScreen(pos, map->camera);
 	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
-	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;
+	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
 
 	//無敵時間
 	if (damageCoolTime > 0)
@@ -47,8 +46,7 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 	//HPがなくなった場合、オブジェクト削除
 	if (hp <= 0)
 	{
-		FLAG = false;
-		
+		Respawn();
 		
 	}
 
@@ -208,4 +206,10 @@ void CPlayer::Draw()
 
 	DrawFormatString(draw_pos.x, draw_pos.y, 0xfffff, "HP:%d", hp);
 
+}
+
+void CPlayer::Respawn()
+{
+	hp = maxhp;
+	pos = stratPos;
 }

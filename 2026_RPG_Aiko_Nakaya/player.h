@@ -11,6 +11,9 @@ public:
 	int Action(const ObjList&, ObjList&);
 	void Draw();
 
+	//リスポーン処理
+	void Respawn();
+
 	//攻撃中フレーム
 	int att_flame{ 0 };
 
@@ -20,4 +23,6 @@ public:
 	//HP
 	int player_hp{5};
 
+private:
+	Point stratPos{ 208,208 };
 };

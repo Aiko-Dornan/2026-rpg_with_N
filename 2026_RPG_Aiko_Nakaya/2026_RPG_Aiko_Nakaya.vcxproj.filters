@@ -107,6 +107,9 @@
     <ClInclude Include="enemyBullet.h">
       <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,6 +164,9 @@
       <Filter>ソース ファイル\オブジェクト</Filter>
     </ClCompile>
     <ClCompile Include="enemyBullet.cpp">
+      <Filter>ソース ファイル\オブジェクト\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
       <Filter>ソース ファイル\オブジェクト\enemy</Filter>
     </ClCompile>
   </ItemGroup>

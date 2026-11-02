@@ -4,8 +4,8 @@
 class CMap {
 public:
 	//マップチップ数
-	static constexpr int MAP_CHIP_X = 16;
-	static constexpr int MAP_CHIP_Y = 16;
+	static constexpr int MAP_CHIP_X = 128;
+	static constexpr int MAP_CHIP_Y = 88;
 	//マップサイズ
 	static constexpr int MAP_SIZE_X = CHIP_SIZE_X * MAP_CHIP_X;
 	static constexpr int MAP_SIZE_Y = CHIP_SIZE_Y * MAP_CHIP_Y;

@@ -5,6 +5,7 @@
 int Resource::map_img;
 int Resource::player_img;
 int Resource::octrock_img;
+int Resource::Slime_img;
 int Resource::item_img;
 
 //画像読み込み
@@ -13,7 +14,10 @@ void Resource::Load()
 	//img = LoadGraph("");
 	map_img = LoadGraph("image\\map.png");
 	player_img = LoadGraph("image\\player32.png");
+
+	//敵
 	octrock_img = LoadGraph("image\\octrock.png");
+	Slime_img = LoadGraph("image\\Slime.png");
 
 	item_img = LoadGraph("image\\item.png");
 }
@@ -23,7 +27,9 @@ void Resource::Release() {
 	//DeleteGraph(img);
 	DeleteGraph(map_img);
 	DeleteGraph(player_img);
+
 	DeleteGraph(octrock_img);
+	DeleteGraph(Slime_img);
 
 	DeleteGraph(item_img);
 }

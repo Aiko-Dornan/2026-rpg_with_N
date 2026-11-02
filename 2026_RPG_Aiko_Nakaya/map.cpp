@@ -37,7 +37,7 @@ CMap::CMap() {
 
 	//マップデータ読み込み(後でメンバー関数化）
 	int stage = 1;
-	ifstream fp("image\\test_16-16.txt");
+	ifstream fp("image\\mainmap.txt");
 	string str;
 
 	if (!fp.fail()) {
