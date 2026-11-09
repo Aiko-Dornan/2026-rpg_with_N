@@ -3,27 +3,17 @@
 #include "objBase.h"
 #include"map.h"
 
+#pragma once
+
 class CEnemyBullet : public BaseVector
 {
+private:
+    CMap* map = nullptr;
+
 public:
-	CEnemyBullet(Point,int, CMap*);
+    CEnemyBullet(Point p, int _dir, CMap* _map);
 
-	~CEnemyBullet();
-
-	int Action(const ObjList&, ObjList&);
-	void Draw();
-
-	//CMap* map = nullptr;
-
-	//Šp“x
-	float angle{ 0 };
-	float start_angle{ 0 };
-
-	//Œ•‚Ì’·‚³
-	int length{ 48 };
-
-	Point pl_pos{ 0,0 };
-
-	//ObjList& base;
+    int Action(const ObjList& base, ObjList& add_base) override;
+    void Draw() override;
 };
 

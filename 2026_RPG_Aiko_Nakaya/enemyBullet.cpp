@@ -1,90 +1,84 @@
 #include"enemyBullet.h"
 #include"function.h"
+#include <cmath>
 
 CEnemyBullet::CEnemyBullet(Point p, int _dir, CMap* _map)
 {
-	sprite.img = Resource::player_img;
-	sprite.cutX = 96;
-	sprite.cutY = 32;
-	sprite.width = 32;
-	sprite.height = 32;
+    sprite.img = Resource::player_img;
+    sprite.cutX = 96;
+    sprite.cutY = 32;
+    sprite.width = 32;
+    sprite.height = 32;
 
-	pos = p;
-	Dir = _dir;
-	//マップ情報
-	map = _map;
+    pos = p;
+    Dir = _dir;
+    map = _map;
 
-	//剣の向き
-	if (Dir == (int)DIR::UP)
-	{
-		vec.y=-5.0f;//上
-	}
-	else if (Dir == (int)DIR::DOWN)
-	{
-		vec.y=5.0f;//下
-	}
-	else if (Dir >= (int)DIR::LEFT_DOWN && Dir <= (int)DIR::LEFT_UP)
-	{
-		vec.x=-5.0f;//左
-	}
-	else
-	{
-		vec.x=5.0f;//右
+    // 移動ベクトルを初期化
+    vec.x = 0.0f;
+    vec.y = 0.0f;
 
-	}
+    // 上下左右の4方向
+    switch (Dir)
+    {
+    case (int)DIR::UP:
+        vec.y = -5.0f;
+        break;
 
-	
-	sprite.angle = RADIAN(angle);
+    case (int)DIR::DOWN:
+        vec.y = 5.0f;
+        break;
 
-	pri = 2;
-	ID = (int)ObjID::ENEMYBULLET;
+    case (int)DIR::LEFT:
+        vec.x = -5.0f;
+        break;
 
-	/*Point draw_pos = CameraToScreen(pos, map->camera);
+    case (int)DIR::RIGHT:
+        vec.x = 5.0f;
+        break;
+    }
 
-	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
-	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
-
+    pri = 2;
+    ID = (int)ObjID::ENEMYBULLET;
 }
 
+// 弾の行動
 int CEnemyBullet::Action(const ObjList& base, ObjList& add_base)
 {
-	/*Point draw_pos = CameraToScreen(pos, map->camera);
+    // 移動
+    pos.x += vec.x;
+    pos.y += vec.y;
 
-	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;
-	map->camera.y = draw_pos.y - WINDOW_HEIGHT / 2;*/
+    // プレイヤーの位置を取得
+    Point playerPos{};
 
-	pos.x += vec.x;
-	
-	pos.y += vec.y;
-	
-	for (int i = 0; i < base.size(); i++) 
-		{
-			BaseVector* a = base[i].get();
-		
-			if (a->ID == (int)ObjID::PLAYER)
-			{
-				pl_pos = a->pos;
-			}
+    for (int i = 0; i < base.size(); i++)
+    {
+        BaseVector* obj = base[i].get();
 
-		}
+        if (obj->ID == (int)ObjID::PLAYER)
+        {
+            playerPos = obj->pos;
+            break;
+        }
+    }
 
-	if (pos.x> pl_pos .x+WINDOW_WIDTH|| pos.x < pl_pos.x - WINDOW_WIDTH|| pos.y > pl_pos.y + WINDOW_HEIGHT|| pos.y < pl_pos.y - WINDOW_HEIGHT)
-	{
-		FLAG = false;
-	}
-	
+    // プレイヤーを基準に画面外判定
+    if (pos.x > playerPos.x + WINDOW_WIDTH / 2 ||
+        pos.x < playerPos.x - WINDOW_WIDTH / 2 ||
+        pos.y > playerPos.y + WINDOW_HEIGHT / 2 ||
+        pos.y < playerPos.y - WINDOW_HEIGHT / 2)
+    {
+        FLAG = false;
+    }
 
-	return 0;
+    return 0;
 }
 
+// 描画
 void CEnemyBullet::Draw()
 {
-	Point draw_pos = CameraToScreen(pos, map->camera);
+    Point draw_pos = CameraToScreen(pos, map->camera);
 
-	sprite.Draw(draw_pos.x + vec.x, draw_pos.y + vec.y);
-}
-
-CEnemyBullet::~CEnemyBullet()
-{
-	FLAG = false;
+    sprite.Draw(draw_pos.x, draw_pos.y);
 }

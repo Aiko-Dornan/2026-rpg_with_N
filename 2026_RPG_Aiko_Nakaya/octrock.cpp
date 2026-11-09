@@ -4,158 +4,183 @@
 #include"expitem.h"
 #include"player.h"
 #include"enemyBullet.h"
+#include <cmath>
 
-COctrock::COctrock(Point p, CMap* _map,CSpawnPoint* _sp)
+
+COctrock::COctrock(Point p, CMap* _map, CSpawnPoint* _sp)
 {
-	sprite.img = Resource::octrock_img;
-	sprite.cutX = 0;
-	sprite.cutY = 0;
-	
-	sprite.width = ImgWidth = 32;
-	sprite.height = ImgHeight = 32;
+    sprite.img = Resource::octrock_img;
+    sprite.cutX = 0;
+    sprite.cutY = 0;
+    sprite.width = ImgWidth = 32;
+    sprite.height = ImgHeight = 32;
 
-	map = _map;
+    map = _map;
+    pos = p;
 
-	pos = p;
+    HP(2);
+    MoveSpeed(10.0f);
 
-	HP(2);//HP初期化
+    spawn = _sp;
 
-	MoveSpeed(10.0f);//移動速度初期化
-
-	//スポーン位置保存
-	spawn = _sp;
-
-	ID = (int)ObjID::ENEMY;
-	pri = 2;
+    ID = (int)ObjID::ENEMY;
+    pri = 2;
 }
 
-int COctrock::Action(const ObjList& base, ObjList& add_base)
+// プレイヤーに向かって移動する
+void COctrock::MoveToPlayer(Point playerPos)
 {
-	//無敵時間
-	if (damageCoolTime>0)
-	{
-		damageCoolTime--;
-	}
+    float dx = playerPos.x - pos.x;
+    float dy = playerPos.y - pos.y;
 
-	//HPがなくなった場合、オブジェクト削除
-	if (hp<=0)
-	{
-		FLAG = false;
-		spawn->enemyAlive = false;
-		add_base.push_back(make_unique<CItemExp>(pos, map));
-	}
+    vec.x = 0.0f;
+    vec.y = 0.0f;
 
-	if (UpdateKnockBack())return 0;
+    // X座標を合わせる
+    if (dx != 0.0f)
+    {
+        if (dx > 0)
+        {
+            Dir = (int)DIR::RIGHT;
+            vec.x = (dx < moveSpeed) ? dx : moveSpeed;
+        }
+        else
+        {
+            Dir = (int)DIR::LEFT;
+            vec.x = (dx > -moveSpeed) ? dx : -moveSpeed;
+        }
+    }
+    // X座標が一致したらY座標を合わせる
+    else if (dy != 0.0f)
+    {
+        if (dy > 0)
+        {
+            Dir = (int)DIR::DOWN;
+            vec.y = (dy < moveSpeed) ? dy : moveSpeed;
+        }
+        else
+        {
+            Dir = (int)DIR::UP;
+            vec.y = (dy > -moveSpeed) ? dy : -moveSpeed;
+        }
+    }
 
-	//ランダム移動
-	if (MoveMentTime<0.0f)
-	{
-		TestMove();
-		//移動方向からキャラクターの向きを取得
-		
-	}
-	else
-	{
-		MoveMentTime--;
-	}
+    // 移動先の判定
+    Point nextPos = pos;
+    nextPos.x += vec.x;
+    nextPos.y += vec.y;
 
-	if (attackTime<0.0f)
-	{
-		Attack(add_base);
-	}
-	else
-	{
-		attackTime--;
+    if (map->CanMove(nextPos, ImgWidth, ImgHeight))
+    {
+        pos = nextPos;
+    }
 
-	}
-
-
-	return 0;
-
-
-
+    vec.x = 0.0f;
+    vec.y = 0.0f;
 }
 
-void COctrock::Draw()
-{
-	Point draw_pos = CameraToScreen(pos, map->camera);
-
-	sprite.Draw(draw_pos.x, draw_pos.y);
-}
-
-void COctrock::TestMove()
-{
-	
-
-	move_direction = GetRand(3);
-
-
-
-	switch (move_direction)
-	{
-	case 0://右
-		vec.x = move_speed;
-		break;
-	case 1://左
-		vec.x = -move_speed;
-		break;
-	case 2://上
-		vec.y = -move_speed;
-		break;
-	case 3://下
-		vec.y = move_speed;
-		break;
-	default:
-		break;
-	}
-
-	//移動ベクトル
-	vec = Vector_SetLength(vec, 4.0f);
-	//移動後の座標
-	Point nextPos = pos;
-
-	//x方向
-	nextPos.x += vec.x;
-	if (map->CanMove(nextPos, ImgWidth, ImgHeight))
-		pos.x = nextPos.x;
-
-	//y方向
-	//現在の位置をもう一度コピー
-	//x方向の移動結果を反映した位置からy方向を判定する
-	nextPos = pos;
-	nextPos.y += vec.y;
-	if (map->CanMove(nextPos, ImgWidth, ImgHeight))
-		pos.y = nextPos.y;
-
-	Dir = GetDir(Dir);
-
-	vec.x = 0.0f;
-	vec.y = 0.0f;
-
-	MoveMentTime = 10.0f;
-}
-
+// 弾を発射する
 void COctrock::Attack(ObjList& add_base)
 {
-	add_base.push_back(make_unique<CEnemyBullet>(pos,Dir, map));
-	attackTime = 10.0f;
+    add_base.push_back(
+        make_unique<CEnemyBullet>(pos, Dir, map)
+    );
 
-	//switch (move_direction)
-	//{
-	//case 0://右
-	//	vec.x = move_speed;
-	//	break;
-	//case 1://左
-	//	vec.x = -move_speed;
-	//	break;
-	//case 2://上
-	//	vec.y = -move_speed;
-	//	break;
-	//case 3://下
-	//	vec.y = move_speed;
-	//	break;
-	//default:
-	//	break;
-	//}
+    attackTime = 100.0f;
+}
 
+// 敵の行動
+int COctrock::Action(const ObjList& base, ObjList& add_base)
+{
+    // 攻撃・移動タイマー更新
+    if (attackTime > 0)
+        attackTime--;
+
+    if (MoveMentTime > 0)
+        MoveMentTime--;
+
+    // HPが0以下なら死亡
+    if (hp <= 0)
+    {
+        FLAG = false;
+
+        if (spawn != nullptr)
+            spawn->enemyAlive = false;
+
+        // 経験値アイテム生成処理がある場合はここに記述
+        return 0;
+    }
+
+    // プレイヤーを探す
+    CPlayer* player = nullptr;
+
+    for (int i = 0; i < base.size(); i++)
+    {
+        BaseVector* obj = base[i].get();
+
+        if (obj->ID == (int)ObjID::PLAYER)
+        {
+            player = dynamic_cast<CPlayer*>(obj);
+            break;
+        }
+    }
+
+    if (player == nullptr)
+        return 0;
+
+    // プレイヤーとの距離
+    float dx = player->pos.x - pos.x;
+    float dy = player->pos.y - pos.y;
+
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    // X方向に重なっているか
+    bool overlapX =
+        pos.x < player->pos.x + player->ImgWidth &&
+        pos.x + ImgWidth > player->pos.x;
+
+    // Y方向に重なっているか
+    bool overlapY =
+        pos.y < player->pos.y + player->ImgHeight &&
+        pos.y + ImgHeight > player->pos.y;
+
+    // 攻撃範囲内かつ、XかYのどちらかが重なっている場合
+    if (distance <= attackRange && (overlapX || overlapY))
+    {
+        // プレイヤーの方向を向く
+        if (std::fabs(dx) > std::fabs(dy))
+        {
+            Dir = (dx > 0)
+                ? (int)DIR::RIGHT
+                : (int)DIR::LEFT;
+        }
+        else
+        {
+            Dir = (dy > 0)
+                ? (int)DIR::DOWN
+                : (int)DIR::UP;
+        }
+
+        vec.x = 0.0f;
+        vec.y = 0.0f;
+
+        // 攻撃タイマーが0なら発射
+        if (attackTime <= 0)
+            Attack(add_base);
+    }
+    else
+    {
+        // 攻撃できない場合はプレイヤーに向かって移動
+        MoveToPlayer(player->pos);
+    }
+
+    return 0;
+}
+
+// 描画
+void COctrock::Draw()
+{
+    Point draw_pos = CameraToScreen(pos, map->camera);
+
+    sprite.Draw(draw_pos.x, draw_pos.y);
 }
