@@ -15,9 +15,32 @@ private:
     float attackTime = 50.0f;
 
     float moveSpeed = 2.0f;
-    float attackRange = 200.0f;
+    float attackRange = 250.0f;
+
+    // プレイヤー位置の確認タイマー
+    int positionCheckTimer = 0;
+
+    // プレイヤー位置を確認する間隔
+    int positionCheckInterval = 60;
+
+    // 後退中かどうか
+    bool isRetreating = false;
+
+    // 移動方向
+    // 0 = 移動なし
+    // 1 = X方向
+    // 2 = Y方向
+    int moveAxis = 0;
 
     void MoveToPlayer(Point playerPos);
+    void MoveToPlayer(Point playerPos, float playerWidth, float playerHeight);
+    void MoveToPlayer(
+        Point playerPos,
+        float playerWidth,
+        float playerHeight,
+        bool allowInsideRange = false
+    );
+    void MoveAwayFromPlayer(Point playerPos,float playerWidth, float playerHeight);
     void Attack(ObjList& add_base);
 
 public:
