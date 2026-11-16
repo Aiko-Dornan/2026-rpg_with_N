@@ -2,6 +2,7 @@
 #include"function.h"
 #include"octrock.h"
 #include"slime.h"
+#include"kamikaze.h"
 
 CSpawnPoint::CSpawnPoint(Point p, int no, CMap* _map)
 {
@@ -36,7 +37,7 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 		//敵出現
 		if (dist<=150)
 		{
-			EnemyNo = GetRand(1);
+			EnemyNo = GetRand(2);
 			//敵生成
 			switch (EnemyNo)
 			{
@@ -46,10 +47,12 @@ int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)
 				case 1:
 					add_base.push_back(make_unique<CSlime>(pos, map, this));
 					break;
+				case 2:
+					add_base.push_back(make_unique<CKamikaze>(pos, map, this));
+					break;
 			}
 			enemyAlive = true;
 			timer = 0;
-
 		}
 
 	}

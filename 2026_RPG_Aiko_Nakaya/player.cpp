@@ -80,11 +80,8 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 	//	//ノックバックの勢いを徐々に減速
 	//	knockVec.x *= 0.8f;
 	//	knockVec.y *= 0.8f;
-
 	//	return 0;
 	//}
-
-
 	//移動処理
 	if (CheckHitKey(KEY_INPUT_A)) vec.x = -1.0f;
 	if (CheckHitKey(KEY_INPUT_D)) vec.x = 1.0f;

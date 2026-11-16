@@ -163,6 +163,7 @@
     <ClInclude Include="function.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="kamikaze.h" />
     <ClInclude Include="libID.h" />
     <ClInclude Include="library_function.h" />
     <ClInclude Include="main.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="function.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="kamikaze.cpp" />
     <ClCompile Include="library_function.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />

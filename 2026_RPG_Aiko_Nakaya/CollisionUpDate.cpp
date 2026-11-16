@@ -31,6 +31,13 @@ void CollisionUpDate(ObjList& base) {
 
 			}
 
+			if (a->ID == (int)ObjID::PLAYER && b->ID == (int)ObjID::KAMIKAZE)
+			{
+				//CPlayer* player = dynamic_cast<CPlayer>(a);
+				Player_KAMIKAZE_Collision(a, b);
+
+			}
+
 			//プレイヤーと敵の弾
 			if (a->ID == (int)ObjID::PLAYER && b->ID == (int)ObjID::ENEMYBULLET)
 			{
@@ -45,6 +52,15 @@ void CollisionUpDate(ObjList& base) {
 				Enemy_Sword_Collision(a, b);
 
 			}
+
+			//特攻敵と剣
+			if (a->ID == (int)ObjID::KAMIKAZE && b->ID == (int)ObjID::SWORD)
+			{
+				//CPlayer* player = dynamic_cast<CPlayer>(a);
+				Kamikaze_Sword_Collision(a, b);
+
+			}
+
 			//プレイヤーとアイテム
 			if (a->ID == (int)ObjID::PLAYER && b->ID == (int)ObjID::ITEM)
 			{
@@ -78,6 +94,74 @@ void Player_Enemy_Collision(BaseVector* a, BaseVector* b)
 	}
 }
 
+//プレイヤーと特攻敵
+void Player_KAMIKAZE_Collision(BaseVector* a, BaseVector* b)
+{
+	if (HitCheck_Box2(a, b))
+	{
+		CDamageObj* player = dynamic_cast<CDamageObj*>(a);
+		CDamageObj* enemy = dynamic_cast<CDamageObj*>(b);
+
+		Vector v{
+		a->pos.x - b->pos.x,
+		a->pos.y - b->pos.y
+		};
+		v = Vector_SetLength(v, 15.0f);
+		//player->KnockBack(v);
+		player->Damage(2, v);
+		enemy->Damage(5, v);
+	}
+}
+
+//当たり屋と剣
+void Kamikaze_Sword_Collision(BaseVector* a, BaseVector* b)
+{
+	//敵の当たり判定用半径
+	float enemyRadius = 16;
+
+	//剣の始点と終点を求め、剣の線分を求める。
+
+	//剣オブジェクトを取得
+	CSword* s = dynamic_cast<CSword*>(b);
+
+	//剣の始点
+	Point swordStart{ s->pos.x,s->pos.y };
+
+	//剣の角度と長さから終点を計算
+
+	Point swordEnd{
+		s->pos.x + cos(s->sprite.angle) * s->length,
+		s->pos.y + sin(s->sprite.angle) * s->length
+	};
+
+	//敵の中心から剣の線分までの最短距離を求める。
+
+	//敵の中心から、剣の線分上で最も近い点を取得
+	Point lp = Position_Closest_Line(a->pos, swordStart, swordEnd);
+
+	//求めた点と敵の円判定
+
+	float dx = a->pos.x - lp.x;
+	float dy = a->pos.y - lp.y;
+	float dist = sqrt(dx * dx + dy * dy);
+
+	//敵の中心から剣までの距離が半径以内なら当たり
+	if (dist <= enemyRadius)
+	{
+		//敵を削除
+		CDamageObj* enemy = dynamic_cast<CDamageObj*>(a);
+		//ノックバックするベクトル(剣の最近点と敵の中心)
+		Vector v
+		{
+		enemy->pos.x - s->pos.x,
+		enemy->pos.y - s->pos.y
+		};
+		v = Vector_SetLength(v, 15);
+		enemy->Damage(1, v);
+
+	}
+}
+
 //プレイヤーと敵の弾
 void Player_EnemyBullet_Collision(BaseVector* a, BaseVector* b)
 {
@@ -93,9 +177,6 @@ void Player_EnemyBullet_Collision(BaseVector* a, BaseVector* b)
 		v = Vector_SetLength(v, 15.0f);
 		//player->KnockBack(v);
 		player->Damage(1, v);
-
-
-
 	}
 }
 

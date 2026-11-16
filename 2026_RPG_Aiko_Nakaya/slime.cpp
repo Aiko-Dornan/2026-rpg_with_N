@@ -1,9 +1,10 @@
 #include"slime.h"
 #include"function.h"
 #include"spawnPoint.h"
+#include "CollisionUpdate.h"
 #include"expitem.h"
 #include"player.h"
-#include"enemyBullet.h"
+#include <cmath>
 
 CSlime::CSlime(Point p, CMap* _map, CSpawnPoint* _sp)
 {
@@ -44,6 +45,42 @@ int CSlime::Action(const ObjList& base, ObjList& add_base)
 		add_base.push_back(make_unique<CItemExp>(pos, map));
 	}
 
+	// プレイヤーを探す
+	CPlayer* player = nullptr;
+
+	for (int i = 0; i < base.size(); i++)
+	{
+		BaseVector* obj = base[i].get();
+
+		if (obj->ID == (int)ObjID::PLAYER)
+		{
+			player = dynamic_cast<CPlayer*>(obj);
+			break;
+		}
+	}
+
+	if (player == nullptr)
+		return 0;
+
+	// プレイヤーとの距離
+	float dx = player->pos.x - pos.x;
+	float dy = player->pos.y - pos.y;
+
+	float distance = std::sqrt(dx * dx + dy * dy);
+
+	if (distance > 0.0f)
+	{
+		vec.x = (dx / distance) * moveSpeed;
+		vec.y = (dy / distance) * moveSpeed;
+	}
+	else
+	{
+		if (player == nullptr)
+			return 0;
+	}
+
+	pos.x += vec.x;
+	pos.y += vec.y;
 
 
 	return 0;

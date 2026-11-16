@@ -6,6 +6,7 @@ int Resource::map_img;
 int Resource::player_img;
 int Resource::octrock_img;
 int Resource::Slime_img;
+int Resource::kamikaze_img;
 int Resource::item_img;
 
 //画像読み込み
@@ -18,6 +19,7 @@ void Resource::Load()
 	//敵
 	octrock_img = LoadGraph("image\\octrock.png");
 	Slime_img = LoadGraph("image\\Slime.png");
+	kamikaze_img = LoadGraph("image\\kamikaze.png");
 
 	item_img = LoadGraph("image\\item.png");
 }
@@ -30,6 +32,7 @@ void Resource::Release() {
 
 	DeleteGraph(octrock_img);
 	DeleteGraph(Slime_img);
+	DeleteGraph(kamikaze_img);
 
 	DeleteGraph(item_img);
 }

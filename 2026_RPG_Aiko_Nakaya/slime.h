@@ -16,6 +16,8 @@ public:
 	//対象スポナー
 	CSpawnPoint* spawn{ nullptr };
 
+	float moveSpeed = 1.0f;
+
 	//CEnemyBullet* eb;
 
 };

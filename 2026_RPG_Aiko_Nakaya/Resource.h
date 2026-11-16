@@ -12,6 +12,7 @@ public:
 	//敵
 	static int octrock_img;
 	static int Slime_img;
+	static int kamikaze_img;
 
 	static int item_img;
 

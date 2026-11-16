@@ -4,6 +4,7 @@
 enum class ObjID {
 	PLAYER,
 	ENEMY,
+	KAMIKAZE,
 	SWORD,
 	ITEM,
 	ENEMYBULLET,
@@ -12,4 +13,5 @@ enum class ObjID {
 //アイテムID
 enum class ItemNo {
 	EXP,
+	HEART,
 };

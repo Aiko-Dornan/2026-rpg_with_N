@@ -110,6 +110,9 @@
     <ClInclude Include="slime.h">
       <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="kamikaze.h">
+      <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -167,6 +170,9 @@
       <Filter>ソース ファイル\オブジェクト\enemy</Filter>
     </ClCompile>
     <ClCompile Include="slime.cpp">
+      <Filter>ソース ファイル\オブジェクト\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="kamikaze.cpp">
       <Filter>ソース ファイル\オブジェクト\enemy</Filter>
     </ClCompile>
   </ItemGroup>
