@@ -4,6 +4,7 @@
 //int Resource::img;
 int Resource::map_img;
 int Resource::player_img;
+int Resource::bow_img;
 int Resource::octrock_img;
 int Resource::Slime_img;
 int Resource::kamikaze_img;
@@ -15,6 +16,7 @@ void Resource::Load()
 	//img = LoadGraph("");
 	map_img = LoadGraph("image\\map.png");
 	player_img = LoadGraph("image\\player32.png");
+	bow_img = LoadGraph("image\\bow.png");
 
 	//敵
 	octrock_img = LoadGraph("image\\octrock.png");

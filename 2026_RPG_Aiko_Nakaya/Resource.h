@@ -8,6 +8,7 @@ public:
 
 	static int map_img;
 	static int player_img;
+	static int bow_img;
 
 	//敵
 	static int octrock_img;

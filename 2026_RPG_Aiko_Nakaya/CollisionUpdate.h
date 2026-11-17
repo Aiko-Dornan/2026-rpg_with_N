@@ -18,6 +18,9 @@ void Player_EnemyBullet_Collision(BaseVector*, BaseVector*);
 //敵と剣
 void Enemy_Sword_Collision(BaseVector*, BaseVector*);
 
+//敵と弓
+void Enemy_Allow_Collision(BaseVector*, BaseVector*);
+
 //当たり屋と剣
 void Kamikaze_Sword_Collision(BaseVector*, BaseVector*);
 

@@ -53,6 +53,13 @@ void CollisionUpDate(ObjList& base) {
 
 			}
 
+			if (a->ID == (int)ObjID::ENEMY && b->ID == (int)ObjID::ALLOW)
+			{
+				//CPlayer* player = dynamic_cast<CPlayer>(a);
+				Enemy_Allow_Collision(a, b);
+
+			}
+
 			//特攻敵と剣
 			if (a->ID == (int)ObjID::KAMIKAZE && b->ID == (int)ObjID::SWORD)
 			{
@@ -230,6 +237,27 @@ void Enemy_Sword_Collision(BaseVector* a, BaseVector* b)
 		v = Vector_SetLength(v, 15);
 		enemy->Damage(1,v);
 
+	}
+
+}
+
+//敵と弓
+void Enemy_Allow_Collision(BaseVector* a, BaseVector* b)
+{
+
+
+	if (HitCheck_Box2(a, b))
+	{
+		//a->FLAG = false;
+		CDamageObj* enemy = dynamic_cast<CDamageObj*>(a);
+
+		Vector v{
+		a->pos.x - b->pos.x,
+		a->pos.y - b->pos.y
+		};
+		v = Vector_SetLength(v, 15.0f);
+		//player->KnockBack(v);
+		enemy->Damage(1, v);
 	}
 
 }

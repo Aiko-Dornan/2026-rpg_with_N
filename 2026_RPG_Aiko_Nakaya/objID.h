@@ -6,6 +6,7 @@ enum class ObjID {
 	ENEMY,
 	KAMIKAZE,
 	SWORD,
+	ALLOW,
 	ITEM,
 	ENEMYBULLET,
 };

@@ -1,6 +1,7 @@
 ﻿#include"player.h"
 #include"function.h"
 #include"sword.h"
+#include"allow.h"
 
 CPlayer::CPlayer(CMap* _map)
 {
@@ -149,6 +150,13 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 	if (Check_TriggerKey(KEY_INPUT_SPACE))
 	{
 		add_base.push_back(make_unique<CSword>(pos, Dir, map));
+
+		//攻撃後の硬直フレームを設定
+		att_flame = 13;
+	}
+	else if (CheckHitKey(KEY_INPUT_F))
+	{
+		add_base.push_back(make_unique<CAllow>(pos, Dir, map));
 
 		//攻撃後の硬直フレームを設定
 		att_flame = 13;

@@ -113,6 +113,9 @@
     <ClInclude Include="kamikaze.h">
       <Filter>ヘッダー ファイル\オブジェクト\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="allow.h">
+      <Filter>ヘッダー ファイル\オブジェクト</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -174,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="kamikaze.cpp">
       <Filter>ソース ファイル\オブジェクト\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="allow.cpp">
+      <Filter>ソース ファイル\オブジェクト</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
