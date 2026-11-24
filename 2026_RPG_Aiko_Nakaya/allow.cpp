@@ -3,11 +3,11 @@
 
 CAllow::CAllow(Point p, int _dir, CMap* _map)
 {
-	sprite.img = Resource::player_img;
-	sprite.cutX = 96;
-	sprite.cutY = 32;
+	sprite.img = Resource::bow_img;
+	sprite.cutX = 0;
+	sprite.cutY = 8;
 	sprite.width = 32;
-	sprite.height = 32;
+	sprite.height = 16;
 
 	pos = p;
 	Dir = _dir;
@@ -42,24 +42,29 @@ CAllow::CAllow(Point p, int _dir, CMap* _map)
 	{
 	case (int)DIR::UP:
 		vec.y = -5.0f;
+		angle = 270;
 		break;
 
 	case (int)DIR::DOWN:
 		vec.y = 5.0f;
+		angle = 90;
 		break;
 
 	case (int)DIR::LEFT:
 		vec.x = -5.0f;
+		sprite.LR_reverse_flag = true;
 		break;
 
 	case (int)DIR::RIGHT:
 		vec.x = 5.0f;
+		sprite.LR_reverse_flag = false;
 		break;
 	}
 
 	pri = 2;
 	ID = (int)ObjID::ALLOW;
 
+	sprite.angle = RADIAN(angle);
 	/*Point draw_pos = CameraToScreen(pos, map->camera);
 
 	map->camera.x = draw_pos.x - WINDOW_WIDTH / 2;

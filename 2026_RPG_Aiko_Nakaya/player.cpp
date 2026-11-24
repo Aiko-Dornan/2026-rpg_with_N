@@ -2,6 +2,7 @@
 #include"function.h"
 #include"sword.h"
 #include"allow.h"
+#include"spawnPoint.h"
 
 CPlayer::CPlayer(CMap* _map)
 {
@@ -47,7 +48,9 @@ int CPlayer::Action(const ObjList& base, ObjList& add_base)
 	//HPがなくなった場合、オブジェクト削除
 	if (hp <= 0)
 	{
+		DeleteAllEnemy(base);
 		Respawn();
+		
 		
 	}
 
@@ -217,4 +220,51 @@ void CPlayer::Respawn()
 {
 	hp = maxhp;
 	pos = stratPos;
+}
+
+void CPlayer::DeleteAllEnemy(const ObjList& base)
+{
+	CDamageObj* enemy = nullptr;
+
+	/*for (int i = 0; i < base.size(); i++)
+	{
+		BaseVector* obj = base[i].get();
+
+		if (obj->ID == (int)ObjID::ENEMY)
+		{
+			enemy = dynamic_cast<CDamageObj*>(obj);
+			enemy->FLAG = false;
+			
+		}
+
+	}*/
+
+	for (const auto& e : base)
+	{
+		BaseVector* obj = e.get();
+
+		// nullチェックとID判定
+		if (obj && obj->ID == static_cast<int>(ObjID::ENEMY))
+		{
+			// キャスト成功時のみ処理を実行
+			if (auto* enemy = dynamic_cast<CDamageObj*>(obj))
+			{
+				enemy->FLAG = false;
+				
+			}
+		}
+
+		if (obj && obj->ID == static_cast<int>(ObjID::SPAWN))
+		{
+			// キャスト成功時のみ処理を実行
+			if (auto* enemy = dynamic_cast<CSpawnPoint*>(obj))
+			{
+				enemy->enemyAlive=false;
+
+			}
+		}
+
+	}
+
+
 }

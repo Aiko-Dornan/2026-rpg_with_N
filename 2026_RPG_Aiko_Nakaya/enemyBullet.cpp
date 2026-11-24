@@ -1,55 +1,59 @@
-#include"enemyBullet.h"
+ï»¿#include"enemyBullet.h"
 #include"function.h"
 #include <cmath>
 
 CEnemyBullet::CEnemyBullet(Point p, int _dir, CMap* _map)
 {
-    sprite.img = Resource::player_img;
-    sprite.cutX = 96;
-    sprite.cutY = 32;
+    sprite.img = Resource::bow_img;
+    sprite.cutX = 0;
+    sprite.cutY = 8;
     sprite.width = 32;
-    sprite.height = 32;
+    sprite.height = 16;
 
     pos = p;
     Dir = _dir;
     map = _map;
 
-    // ˆÚ“®ƒxƒNƒgƒ‹‚ğ‰Šú‰»
+    // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã‚’åˆæœŸåŒ–
     vec.x = 0.0f;
     vec.y = 0.0f;
 
-    // ã‰º¶‰E‚Ì4•ûŒü
+    // ä¸Šä¸‹å·¦å³ã®4æ–¹å‘
     switch (Dir)
     {
     case (int)DIR::UP:
         vec.y = -5.0f;
+        angle = 270;
         break;
 
     case (int)DIR::DOWN:
         vec.y = 5.0f;
+        angle = 90;
         break;
 
     case (int)DIR::LEFT:
         vec.x = -5.0f;
+        sprite.LR_reverse_flag = true;
         break;
 
     case (int)DIR::RIGHT:
         vec.x = 5.0f;
+        sprite.LR_reverse_flag = false;
         break;
     }
-
+    sprite.angle = RADIAN(angle);
     pri = 2;
     ID = (int)ObjID::ENEMYBULLET;
 }
 
-// ’e‚Ìs“®
+// å¼¾ã®è¡Œå‹•
 int CEnemyBullet::Action(const ObjList& base, ObjList& add_base)
 {
-    // ˆÚ“®
+    // ç§»å‹•
     pos.x += vec.x;
     pos.y += vec.y;
 
-    // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğæ“¾
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’å–å¾—
     Point playerPos{};
 
     for (int i = 0; i < base.size(); i++)
@@ -63,7 +67,7 @@ int CEnemyBullet::Action(const ObjList& base, ObjList& add_base)
         }
     }
 
-    // ƒvƒŒƒCƒ„[‚ğŠî€‚É‰æ–ÊŠO”»’è
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’åŸºæº–ã«ç”»é¢å¤–åˆ¤å®š
     if (pos.x > playerPos.x + WINDOW_WIDTH / 2 ||
         pos.x < playerPos.x - WINDOW_WIDTH / 2 ||
         pos.y > playerPos.y + WINDOW_HEIGHT / 2 ||
@@ -75,7 +79,7 @@ int CEnemyBullet::Action(const ObjList& base, ObjList& add_base)
     return 0;
 }
 
-// •`‰æ
+// æç”»
 void CEnemyBullet::Draw()
 {
     Point draw_pos = CameraToScreen(pos, map->camera);

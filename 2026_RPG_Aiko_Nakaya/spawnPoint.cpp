@@ -14,6 +14,8 @@ CSpawnPoint::CSpawnPoint(Point p, int no, CMap* _map)
 
 	EnemyNo = no;
 	map = _map;
+	ID = (int)ObjID::SPAWN;
+
 }
 
 int CSpawnPoint::Action(const ObjList& base, ObjList& add_base)

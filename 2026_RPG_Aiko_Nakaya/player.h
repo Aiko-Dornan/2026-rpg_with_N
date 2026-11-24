@@ -23,6 +23,9 @@ public:
 	//HP
 	int player_hp{5};
 
+	//敵消去
+	void DeleteAllEnemy(const ObjList&);
+
 private:
 	Point stratPos{ 208,308 };
 };

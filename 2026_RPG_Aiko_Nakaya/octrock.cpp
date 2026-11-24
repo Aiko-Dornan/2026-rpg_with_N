@@ -515,6 +515,29 @@ int COctrock::Action(const ObjList& base, ObjList& add_base)
     // 後退を終了する距離
     float retreatEndDistance = attackRange + 30.0f;
 
+
+    if ((int)DIR::DOWN)
+    {
+        sprite.cutY = 0;
+        sprite.UD_reverse_flag = true;
+    }
+    if ((int)DIR::UP)
+    {
+        sprite.cutY = 0;
+        sprite.UD_reverse_flag = false;
+    }
+    if ((int)DIR::LEFT)
+    {
+        sprite.cutY = 32;
+        sprite.LR_reverse_flag = true;
+    }
+    else
+    {
+        sprite.cutY = 32;
+        sprite.LR_reverse_flag = false;
+    }
+
+
     // 射程内で射線が通っていなければ後退開始
     if (distance <= attackRange && !lineOfSight)
     {
@@ -585,6 +608,26 @@ int COctrock::Action(const ObjList& base, ObjList& add_base)
         );
     }
 
+    if ((int)DIR::DOWN)
+    {
+        sprite.cutY = 0;
+        sprite.UD_reverse_flag = true;
+    }
+    if ((int)DIR::UP)
+    {
+        sprite.cutY = 0;
+        sprite.UD_reverse_flag = false;
+    }
+    if ((int)DIR::LEFT)
+    {
+        sprite.cutY = 32;
+        sprite.LR_reverse_flag = true;
+    }
+    else
+    {
+        sprite.cutY = 32;
+        sprite.LR_reverse_flag = false;
+    }
     return 0;
 }
 

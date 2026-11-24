@@ -5,6 +5,7 @@ enum class ObjID {
 	PLAYER,
 	ENEMY,
 	KAMIKAZE,
+	SPAWN,
 	SWORD,
 	ALLOW,
 	ITEM,

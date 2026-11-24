@@ -31,6 +31,7 @@ void Resource::Release() {
 	//DeleteGraph(img);
 	DeleteGraph(map_img);
 	DeleteGraph(player_img);
+	DeleteGraph(bow_img);
 
 	DeleteGraph(octrock_img);
 	DeleteGraph(Slime_img);
